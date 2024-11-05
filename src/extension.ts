@@ -8,7 +8,7 @@ let interval: NodeJS.Timeout | null = null;
 
 function fetchStockPrice(stockCodes: string[]): Promise<{ [key: string]: any }> {
     return new Promise((resolve, reject) => {
-        const scriptPath = path.join(__dirname,'..', 'src', 'fetch_stock_price.py');
+        const scriptPath = path.join(__dirname, '..', 'src', 'fetch_stock_price.py');
         const args = stockCodes;
 
         execFile('python3', [scriptPath, ...args], (error, stdout, stderr) => {
@@ -46,6 +46,8 @@ async function updateStockPrices() {
             statusBarItem.show();
         } catch (error) {
             console.error('Error fetching stock prices:', error);
+            
+            vscode.window.showErrorMessage('Error fetching stock prices: ' + JSON.stringify(error));
             statusBarItem.text = "Error fetching prices";
             statusBarItem.show();
         }
@@ -69,7 +71,7 @@ export function activate(context: vscode.ExtensionContext) {
     interval = setInterval(() => {
         console.log('Interval triggered');
         updateStockPrices();
-    }, 1000);
+    }, 10000);
 
     context.subscriptions.push(statusBarItem);
 }

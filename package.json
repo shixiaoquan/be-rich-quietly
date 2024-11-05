@@ -4,7 +4,7 @@
   "name": "be-rich-quietly",
   "displayName": "Be Rich Quietly",
   "description": "BE RICH QUIETLY, a VS Code extension that displays stock price in the status bar.",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "publisher": "IKUN",
   "engines": {
     "vscode": "^1.95.0"
@@ -54,5 +54,13 @@
     "child_process": "^1.0.2",
     "path": "^0.12.7",
     "puppeteer": "^23.6.1"
-  }
+  },
+  "files": [
+    "out",
+    "src",
+    "src/fetch_stock_price.py",
+    "images/logo.png",
+    "README.md",
+    "LICENSE"
+  ]
 }
