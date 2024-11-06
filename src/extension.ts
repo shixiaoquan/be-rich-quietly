@@ -33,17 +33,20 @@ function fetchStockPrice(stockCodes: string[]): Promise<{ [key: string]: any }> 
         });
     });
 }
-
+let currentPriceText = '';
 async function updateStockPrices() {
-    console.log('updateStockPrices called');
     if (statusBarItem) {
         try {
             const data = await fetchStockPrice(stockCodes);
-            console.log('Fetched stock prices:', data);
+            // console.log('Fetched stock prices:', data);
             const priceText = Object.keys(data).map(key => `${data[key]}`).join(' | ');
+            if(currentPriceText === priceText) return;
+
             console.log('Price text:', priceText);
             statusBarItem.text = priceText || "No prices fetched";
             statusBarItem.show();
+
+            currentPriceText = priceText;
         } catch (error) {
             console.error('Error fetching stock prices:', error);
             
@@ -69,9 +72,9 @@ export function activate(context: vscode.ExtensionContext) {
     // 每秒更新股票价格
     console.log('Starting interval to update stock prices every 3 seconds...');
     interval = setInterval(() => {
-        console.log('Interval triggered');
+        // console.log('Interval triggered');
         updateStockPrices();
-    }, 10000);
+    }, 300);
 
     context.subscriptions.push(statusBarItem);
 }
