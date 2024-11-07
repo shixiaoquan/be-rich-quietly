@@ -74,7 +74,7 @@ export function activate(context: vscode.ExtensionContext) {
     interval = setInterval(() => {
         // console.log('Interval triggered');
         updateStockPrices();
-    }, 300);
+    }, 1000);
 
     context.subscriptions.push(statusBarItem);
 }
